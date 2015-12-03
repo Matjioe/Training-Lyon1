@@ -97,6 +97,7 @@ GameObject:
   - 92: {fileID: 252376981}
   - 124: {fileID: 252376980}
   - 81: {fileID: 252376979}
+  - 114: {fileID: 252376984}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -165,12 +166,25 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 252376978}
-  m_LocalRotation: {x: -.0871722996, y: .899590611, z: -.210452557, w: -.37262255}
-  m_LocalPosition: {x: 1.01395679, y: .709769666, z: 1.01395679}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &252376984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 252376978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c50bb29a1f0014e8e9bf44b6d89e1331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _distance: 3
+  _sensitivity: 10
 --- !u!1 &1180793821
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +196,6 @@ GameObject:
   - 33: {fileID: 1180793824}
   - 135: {fileID: 1180793823}
   - 23: {fileID: 1180793822}
-  - 114: {fileID: 1180793826}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -247,18 +260,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
---- !u!114 &1180793826
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1180793821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae9cb831fec344c70baea114e5269ebe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
 --- !u!1 &1803145876
 GameObject:
   m_ObjectHideFlags: 0
