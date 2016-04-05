@@ -15,7 +15,7 @@ public class LoveWavesRenderer : MonoBehaviour {
 		vertices = new Vector3[maxElementCount];
 		for (int i = 0; i < maxElementCount; ++i)
 		{
-			vertices[i] = Quaternion.AngleAxis(360f*(float)i/(float)maxElementCount, Vector3.up) * Vector3.right * 4f;
+			vertices[i] = Vector3.zero;
 		}
 		indices = new int[maxElementCount];
 		for (int i = 0; i < maxElementCount; ++i)

@@ -5,25 +5,60 @@ public class SpawnEarthquakeBehaviour : StateMachineBehaviour {
 
 	public GameObject prefab;
 	public string exitTrigger;
+	public AudioClip audioClip;
 
 	private GameObject go;
 	bool spawned = false;
+
+	public float dragTime = 0f;
+	public bool raiseEvent = false;
 
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
 		go = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
 		go.transform.SetParent(animator.gameObject.transform);
+		go.SetActive(false);
 		spawned = false;
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
 	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		if (MoveObjectOnSphere() == true && Input.GetMouseButtonDown(0))
+		// Measure drag time
+		if (Input.GetMouseButtonDown(0))
 		{
-			spawned = true;
-			animator.SetTrigger(exitTrigger);
+			dragTime = 0f;
+		}
+		else if (Input.GetMouseButton(0))
+		{
+			dragTime += Time.deltaTime;
+		}
+
+		bool hit = MoveObjectOnSphere();
+		if (hit == true)
+		{
+			// Show object when the mouse is not over a spwaning surface
+			go.SetActive(true);
+
+			// Spawn object if clicking (not dragging)
+			if (Input.GetMouseButtonUp(0) && dragTime < 0.5f)
+			{
+				spawned = true;
+				animator.SetTrigger(exitTrigger);
+				dragTime = 0f;
+				if (raiseEvent)
+				{
+					animator.GetComponent<GameEvents>().onSpawnedSeism.Invoke();
+				}
+				if (audioClip != null)
+					AudioSource.PlayClipAtPoint(audioClip, go.transform.position);
+			}
+		}
+		else
+		{
+			// Hide object when the mouse is not over a spwaning surface
+			go.SetActive(false);
 		}
 	}
 
@@ -35,16 +70,6 @@ public class SpawnEarthquakeBehaviour : StateMachineBehaviour {
 			Destroy(go);
 		}
 	}
-
-	// OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
-	//override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-	//
-	//}
-
-	// OnStateIK is called right after Animator.OnAnimatorIK(). Code that sets up animation IK (inverse kinematics) should be implemented here.
-	//override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-	//
-	//}
 
 	/// <summary>
 	/// Move gameObject on sphere.
@@ -64,4 +89,14 @@ public class SpawnEarthquakeBehaviour : StateMachineBehaviour {
 
 		return false;
 	}
+
+	// OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
+	//override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+	//
+	//}
+
+	// OnStateIK is called right after Animator.OnAnimatorIK(). Code that sets up animation IK (inverse kinematics) should be implemented here.
+	//override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+	//
+	//}
 }

@@ -5,7 +5,8 @@ public class SceneLoader : MonoBehaviour
 {
 	public void LoadScene(string name)
 	{
-		Application.LoadLevel(name);
+		UnityEngine.SceneManagement.SceneManager.LoadScene(name);
+		//Application.LoadLevel(name);
 	}
 
 }
